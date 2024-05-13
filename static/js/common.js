@@ -3,7 +3,7 @@ $(document).ready(function () {
         /**
          * Tạo select năm thi
          */
-        this_year = new Date().getFullYear();
+        let this_year = new Date().getFullYear();
         i = 0
         while (i <= 5) {
             if (i == 0) {
