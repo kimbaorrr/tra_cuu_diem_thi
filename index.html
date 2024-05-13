@@ -17,75 +17,77 @@
     <div class="container-fluid d-flex justify-content-between max-vh-100 max-vw-100">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 col-lg-6">
+                <div class="col-12 col-lg-5">
                     <h3 class="text-danger text-center mt-2 pb-1">TRA CỨU ĐIỂM THI TP.HCM</h3>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+                                    <div class="row g-3 align-items-center mt-1">
+                                        <div class="col-2">
+                                            <label for="select-ky-thi" class="col-form-label">Kỳ thi</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <select id="select-ky-thi" class="form-select">
+                                                <option value="TUYEN_SINH_10" selected>Tuyển sinh 10</option>
+                                                <option value="THPT_QUOC_GIA">THPT Quốc Gia</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="row g-2 align-items-center mt-1">
                                         <div class="col-2">
                                             <label for="select-nam-thi" class="col-form-label">Năm thi</label>
                                         </div>
-                                        <div class="col-10">
+                                        <div class="col-5">
                                             <select id="select-nam-thi" class="form-select"></select>
                                         </div>
+
                                         <div class="row g-3 align-items-center mt-1">
                                             <div class="col-2">
-                                                <label for="select-ky-thi" class="col-form-label">Kỳ thi</label>
+                                                <label class="col-form-label">Lọc theo</label>
                                             </div>
-                                            <div class="col-10">
-                                                <select id="select-ky-thi" class="form-select">
-                                                    <option value="TUYEN_SINH_10" selected>Tuyển sinh 10</option>
-                                                    <option value="THPT_QUOC_GIA">THPT Quốc Gia</option>
-                                                </select>
+                                            <div class="col-auto">
+                                                <div class="input-group">
+                                                    <button class="btn btn-outline-secondary dropdown-toggle"
+                                                        type="button" id="kieu-loc-btn"
+                                                        data-bs-toggle="dropdown">SBD</button>
+                                                    <ul class="dropdown-menu" id="kieu-loc-menu">
+                                                        <li><a class="dropdown-item" href="#">SBD</a></li>
+                                                        <li><a class="dropdown-item" href="#">Họ tên</a></li>
+                                                    </ul>
+                                                    <input type="text" class="form-control" id="searchBySBD"
+                                                        placeholder="Nhập gì đó vào đây....">
+                                                    <button class="btn btn-danger" type="button"
+                                                        id="searchBySBD-btn">Tìm
+                                                        kiếm</button>
+                                                </div>
                                             </div>
-                                            <div class="row g-3 align-items-center mt-1">
-                                                <div class="col-auto">
-                                                    <label>Lọc kết quả</label>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <div class="input-group">
-                                                        <button class="btn btn-outline-secondary dropdown-toggle"
-                                                            type="button" id="kieu-loc-btn"
-                                                            data-bs-toggle="dropdown">SBD</button>
-                                                        <ul class="dropdown-menu" id="kieu-loc-menu">
-                                                            <li><a class="dropdown-item" href="#">SBD</a></li>
-                                                            <li><a class="dropdown-item" href="#">Họ tên</a></li>
-                                                        </ul>
-                                                        <input type="text" class="form-control" id="searchBySBD"
-                                                            placeholder="Nhập gì đó vào đây....">
-                                                        <button class="btn btn-danger" type="button"
-                                                            id="searchBySBD-btn">Tìm
-                                                            kiếm</button>
-                                                    </div>
-                                                </div>
 
-                                            </div>
-                                            <div class="row g-2 mt-2">
-                                                <div class="col text-center">
-                                                    <button class="btn btn-primary py-2" id="load-diem-thi">Nạp dữ
-                                                        liệu</button>
-                                                </div>
-
-                                            </div>
                                         </div>
+                                        <div class="row g-2 mt-2">
+                                            <div class="col text-center">
+                                                <button class="btn btn-primary py-2" id="load-diem-thi">Nạp dữ
+                                                    liệu</button>
+                                            </div>
 
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-9 pt-4">
-                    <div style="display: none;" id="loading-spin">
-                        <div class="spinner-border text-primary d-block text-center mx-auto mt-3"></div>
-                    </div>
-                    <div id="data-diem-thi"></div>
+            </div>
+            <div class="col-12 col-lg-9 pt-4">
+                <div style="display: none;" id="loading-spin">
+                    <div class="spinner-border text-primary d-block text-center mx-auto mt-3"></div>
                 </div>
+                <div id="data-diem-thi"></div>
             </div>
         </div>
+    </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.mini.min.js"></script>
