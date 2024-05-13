@@ -124,6 +124,22 @@ $(document).ready(function () {
         return tableHTML;
     }
 
+    function showLoadingSpin() {
+        /**
+         * Hiện loading circle
+         */
+        console.log("show");
+        $("#loading-spin").show();
+    }
+
+    function hideLoadingSpin() {
+        /**
+         * Ẩn loading circle
+         */
+        console.log("hide");
+        $("#loading-spin").hide();
+    }
+
     $("#load-diem-thi").click(function () {
         /**
          * Load điểm thi lên màn hình
@@ -134,9 +150,15 @@ $(document).ready(function () {
         let ky_thi = $('#select-ky-thi').val();
         // Xóa dữ liệu table hiện tại
         $("#data-diem-thi table").remove();
+        // Hiện loading circle
+        showLoadingSpin();
         // Gọi hàm readExcelFile để load dữ liệu mới từ file excel
         readExcelFile(`/static/data/${ky_thi}_${nam_thi}.xlsx`);
+        // Ẩn loading circle
+        hideLoadingSpin();
     });
+
+
 
 
 
