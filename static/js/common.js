@@ -104,7 +104,7 @@ $(document).ready(function () {
         /**
          * Khởi tạo tag table thể hiện điểm thi
          */
-        let tableHTML = '<div style="height: 50vh;overflow-y: auto;"><table class="table table-striped">';
+        let tableHTML = '<div style="width: auto;height: 50vh;overflow: auto;"><table class="table table-striped">';
         tableHTML += '<thead><tr>';
         // Đọc & và gán header cho table
         for (let key in data[0]) {
