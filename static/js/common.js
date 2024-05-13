@@ -1,5 +1,30 @@
 $(document).ready(function () {
+    function getNamThi() {
+        /**
+         * Tạo select năm thi
+         */
+        this_year = new Date().getFullYear();
+        i = 0
+        while (i <= 5) {
+            if (i == 0) {
+                $("#select-nam-thi").append(`
+                    <option value="${this_year}" selected>${this_year}</option>
+                `);
+            } else {
+                this_year--;
+                $("#select-nam-thi").append(`
+                    <option value="${this_year}">${this_year}</option>
+                `);
+            }
+            i++;
+        }
+    }
+    getNamThi();
+
     function hideRows(search) {
+        /**
+         * Lọc dòng giá trị SBD. Nếu không khớp thì ẩn & ngược lại
+         */
         let $rows = $('#data-diem-thi table tbody tr');
         $rows.each(function () {
             let row = $(this);
