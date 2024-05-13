@@ -17,7 +17,7 @@
     <div class="container-fluid d-flex justify-content-between max-vh-100 max-vw-100">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 col-lg-5">
+                <div class="col-12 col-lg-6">
                     <h3 class="text-danger text-center mt-2 pb-1">TRA CỨU ĐIỂM THI TP.HCM</h3>
                     <div class="row">
                         <div class="col-12">
@@ -42,12 +42,19 @@
                                             </div>
                                             <div class="row g-3 align-items-center mt-1">
                                                 <div class="col-auto">
-                                                    <label>Lọc theo SBD</label>
+                                                    <label>Lọc kết quả</label>
                                                 </div>
                                                 <div class="col-auto">
                                                     <div class="input-group">
+                                                        <button class="btn btn-outline-secondary dropdown-toggle"
+                                                            type="button" id="kieu-loc-btn"
+                                                            data-bs-toggle="dropdown">SBD</button>
+                                                        <ul class="dropdown-menu" id="kieu-loc-menu">
+                                                            <li><a class="dropdown-item" href="#">SBD</a></li>
+                                                            <li><a class="dropdown-item" href="#">Họ tên</a></li>
+                                                        </ul>
                                                         <input type="text" class="form-control" id="searchBySBD"
-                                                            placeholder="Nhập số báo danh...">
+                                                            placeholder="Nhập gì đó vào đây....">
                                                         <button class="btn btn-danger" type="button"
                                                             id="searchBySBD-btn">Tìm
                                                             kiếm</button>

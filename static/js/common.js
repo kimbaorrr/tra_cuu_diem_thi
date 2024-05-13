@@ -21,6 +21,11 @@ $(document).ready(function () {
     }
     getNamThi();
 
+    $("#kieu-loc-menu li a").on("click", function () {
+        let chon_kieu = $(this).text();
+        $("#kieu-loc-btn").text(chon_kieu);
+    });
+
     function hideRows(search) {
         /**
          * Lọc dòng giá trị SBD. Nếu không khớp thì ẩn & ngược lại
@@ -128,7 +133,6 @@ $(document).ready(function () {
         /**
          * Hiện loading circle
          */
-        console.log("show");
         $("#loading-spin").show();
     }
 
@@ -136,7 +140,6 @@ $(document).ready(function () {
         /**
          * Ẩn loading circle
          */
-        console.log("hide");
         $("#loading-spin").hide();
     }
 
