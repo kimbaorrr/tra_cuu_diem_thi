@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:,">
+    <title>Tra cứu điểm thi</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com/">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.css" rel="stylesheet" >
+</head>
+
+<body>
+    <div class="container-fluid d-flex justify-content-between max-vh-100 max-vw-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-5">
+                    <h3 class="text-danger text-center mt-2 pb-1">TRA CỨU ĐIỂM THI</h3>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row g-2 align-items-center mt-1">
+                                        <div class="col-2">
+                                            <label for="select-nam-thi" class="col-form-label">Năm thi</label>
+                                        </div>
+                                        <div class="col-10">
+                                            <select id="select-nam-thi" class="form-select">
+                                                <option value="2023" selected>2023</option>
+                                                <option value="2022">2022</option>
+                                            </select>
+                                        </div>
+                                        <div class="row g-3 align-items-center mt-1">
+                                            <div class="col-2">
+                                                <label for="select-ky-thi" class="col-form-label">Kỳ thi</label>
+                                            </div>
+                                            <div class="col-10">
+                                                <select id="select-ky-thi" class="form-select">
+                                                    <option value="TUYEN_SINH_10" selected>Tuyển sinh 10</option>
+                                                    <option value="THPT_QUOC_GIA">THPT Quốc Gia</option>
+                                                </select>
+                                            </div>
+                                            <div class="row g-3 align-items-center mt-1">
+                                                <div class="col-3">
+                                                    <label>Lọc theo SBD</label>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="searchBySBD"
+                                                            placeholder="Nhập số báo danh...">
+                                                        <button class="btn btn-danger" type="button"
+                                                            id="searchBySBD-btn">Tìm
+                                                            kiếm</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row g-2 mt-2">
+                                                <div class="col text-center">
+                                                    <button class="btn btn-primary py-2" id="load-diem-thi">Nạp dữ
+                                                        liệu</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9 pt-4">
+                    <div id="data-diem-thi"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.mini.min.js"></script>
+    <script src="/static/js/common.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.js"></script>
+</body>
+
+</html>
