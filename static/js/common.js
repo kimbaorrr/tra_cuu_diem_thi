@@ -151,10 +151,10 @@ $(document).ready(function () {
         let ky_thi = $('#select-ky-thi').val();
         // Gọi hàm readExcelFile để load dữ liệu mới từ file excel
         readExcelFile(`/static/data/${ky_thi}_${nam_thi}.xlsx`);
-        // Bật lại nút Nạp dữ liệu sau 5 giây
+        // Bật lại nút Nạp dữ liệu sau 5 giâys
         setTimeout(function () {
             this_btn.prop('disabled', false);
-        }, 5000);
+        }, 3000);
 
     });
 });
