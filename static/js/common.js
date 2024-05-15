@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let table = undefined;
     function getNamThi() {
         /**
          * Tạo select năm thi
@@ -21,38 +22,35 @@ $(document).ready(function () {
     }
     getNamThi();
 
+
     $("#kieu-loc-menu li a").on("click", function () {
+        /**
+         * Chọn kiểu lọc & gán nội dung cho button
+         */
         let chon_kieu = $(this).text();
         $("#kieu-loc-btn").text(chon_kieu);
     });
 
-    function hideRows(search) {
+
+    function searchQuery(value) {
         /**
-         * Lọc dòng giá trị SBD. Nếu không khớp thì ẩn & ngược lại
+         * Bắt đầu tìm kiếm
          */
-        let $rows = $('#data-diem-thi table tbody tr');
-        $rows.each(function () {
-            let row = $(this);
-            let text = row.find('td:first').text();
-            if (text.indexOf(search) === -1) {
-                row.hide();
-            } else {
-                row.show();
-            }
-        });
+        table.search(value).draw();
     }
 
-    function searchSBD() {
-        let search = $("#searchBySBD").val();
-        hideRows(search);
-    }
-
-    $("#searchBySBD").on("keyup", function () {
-        searchSBD();
+    $("#tim-kiem-input").on("keyup", function () {
+        /**
+         * Bắt đầu tìm khi nhấn phím để nhập nội dung
+         */
+        searchQuery($(this).val());
     });
 
-    $("#searchBySBD-btn").on("click", function () {
-        searchSBD();
+    $("#tim-kiem-btn").on("click", function () {
+        /**
+         * Bắt đầu tìm nội dung khi ấn nút
+         */
+        searchQuery($("#tim-kiem-input").val());
     });
 
     function thongBao(message, status) {
@@ -85,6 +83,7 @@ $(document).ready(function () {
             success: function (data) {
                 let reader = new FileReader();
                 reader.onload = function (e) {
+                    // Chuyển data từ reader về dạng mảng uint8 & đọc chúng
                     let data = new Uint8Array(e.target.result);
                     let workbook = XLSX.read(data, { type: 'array' });
                     // Chỉ lấy dữ liệu từ Sheet0 (bỏ qua các sheet còn lại)
@@ -92,10 +91,25 @@ $(document).ready(function () {
                     let workSheet = workbook.Sheets[sheetName];
                     // Chuyển đổi dữ liệu từ worksheet sang JSON
                     let jsonDiemThi = XLSX.utils.sheet_to_json(workSheet);
-                    // Tạo Table từ dữ liệu điểm thi
-                    let tableHTML = khoiTaoTableDiemThi(jsonDiemThi);
-                    // Render điểm thi lên DOM
-                    $("#data-diem-thi").html(tableHTML);
+                    // Xóa bảng hiện tại nếu có
+                    if ($.fn.DataTable.isDataTable("#data-diem-thi")) {
+                        $('#data-diem-thi').DataTable().clear().destroy();
+                    }
+                    // Khởi tạo DataTables với dữ liệu từ JSON
+                    table = $('#data-diem-thi').DataTable({
+                        "columnDefs": [{
+                            "targets": [0], // Chỉ Search cột SBD
+                            "searchable": true
+                        }],
+                        scrollY: '35vh', // Đặt chiều cao của vùng cuộn
+                        scrollCollapse: true, // Bật thanh cuộn
+                        data: jsonDiemThi, // Nạp data json điểm thi
+                        columns: Object.keys(jsonDiemThi[0]).map(key => ({
+                            title: key,
+                            data: key
+                        })) // Lấy thông tin headers
+                    });
+
                 };
                 reader.readAsArrayBuffer(data);
             },
@@ -103,30 +117,6 @@ $(document).ready(function () {
                 thongBao("Không tìm thấy dữ liệu !", "warning");
             }
         });
-    }
-
-    function khoiTaoTableDiemThi(data) {
-        /**
-         * Khởi tạo tag table thể hiện điểm thi
-         */
-        let tableHTML = '<div style="width: auto;height: 50vh;overflow: auto;"><table class="table table-striped">';
-        tableHTML += '<thead><tr>';
-        // Đọc & và gán header cho table
-        for (let key in data[0]) {
-            tableHTML += '<th>' + key + '</th>';
-        }
-        tableHTML += '</tr></thead><tbody>';
-        // Đọc & và gán dữ liệu cho table
-        data.forEach(function (row) {
-            tableHTML += '<tr>';
-            // Lặp lấy các điểm của một SBD và gán vào tag td
-            for (let key in row) {
-                tableHTML += '<td>' + row[key] + '</td>';
-            }
-            tableHTML += '</tr>';
-        });
-        tableHTML += '</tbody></table></div>';
-        return tableHTML;
     }
 
     function showLoadingSpin() {
@@ -147,14 +137,12 @@ $(document).ready(function () {
         /**
          * Load điểm thi lên màn hình
          */
+        // Hiện loading circle
+        showLoadingSpin();
         // Lấy giá trị select năm thi
         let nam_thi = $('#select-nam-thi').val();
         // Lấy giá trị select kỳ thi
         let ky_thi = $('#select-ky-thi').val();
-        // Xóa dữ liệu table hiện tại
-        $("#data-diem-thi table").remove();
-        // Hiện loading circle
-        showLoadingSpin();
         // Gọi hàm readExcelFile để load dữ liệu mới từ file excel
         readExcelFile(`/static/data/${ky_thi}_${nam_thi}.xlsx`);
         // Ẩn loading circle
