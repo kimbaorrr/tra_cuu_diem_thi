@@ -99,7 +99,7 @@ $(document).ready(function () {
                     // Chuyển đổi dữ liệu từ worksheet sang JSON
                     let jsonDiemThi = XLSX.utils.sheet_to_json(workSheet);
                     // Khởi tạo DataTables với dữ liệu từ JSON
-                    d_table = $('#data-diem-thi').DataTable({
+                    table = $('#data-diem-thi').DataTable({
                         "columnDefs": [{
                             "targets": [0], // Chỉ Search cột SBD
                             "searchable": true
@@ -113,11 +113,6 @@ $(document).ready(function () {
                             data: key
                         })) // Lấy thông tin headers
                     });
-                    // Nội dung thay đổi mới gán
-                    if (table !== undefined && table !== d_table) {
-                        table = d_table;
-                    }
-                    delete jsonDiemThi;
                     hideLoadingSpin();
                 };
                 reader.readAsArrayBuffer(data);
