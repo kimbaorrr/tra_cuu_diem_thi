@@ -66,7 +66,7 @@ $(document).ready(function () {
             icon: status,
             title: message,
             showConfirmButton: false,
-            timer: 2200,
+            timer: 2000,
             toast: true
         })
     }
@@ -88,7 +88,6 @@ $(document).ready(function () {
                 responseType: 'blob'
             },
             success: function (data) {
-                showLoadingSpin();
                 let reader = new FileReader();
                 reader.onload = function (e) {
                     // Chuyển data từ reader về dạng mảng uint8 & đọc chúng
@@ -114,9 +113,9 @@ $(document).ready(function () {
                             data: key
                         })) // Lấy thông tin headers
                     });
-                    hideLoadingSpin();
                 };
                 reader.readAsArrayBuffer(data);
+                hideLoadingSpin();
             },
             error: function (error) {
                 thongBao("Không tìm thấy dữ liệu !", "warning");
@@ -129,7 +128,7 @@ $(document).ready(function () {
         /**
          * Hiện loading circle
          */
-        $("#loading-spin").delay(1000).show();
+        $("#loading-spin").show().delay(1000);
     }
 
     function hideLoadingSpin() {
@@ -143,6 +142,8 @@ $(document).ready(function () {
         /**
          * Load điểm thi lên màn hình
          */
+        // Hiện loading circle
+        showLoadingSpin();
         let this_btn = $(this);
         // Tắt nút Nạp dữ liệu khi đã nhấn (Ngăn nhấn nhiều lần)
         this_btn.prop('disabled', true);
@@ -154,7 +155,7 @@ $(document).ready(function () {
         xoaDataTableOld();
         // Gọi hàm readExcelFile để load dữ liệu mới từ file excel
         readExcelFile(`/static/data/${ky_thi}_${nam_thi}.xlsx`);
-        // Bật lại nút Nạp dữ liệu sau 5 giâys
+        // Bật lại nút Nạp dữ liệu sau 1 giâys
         setTimeout(function () {
             this_btn.prop('disabled', false);
         }, 1200);
