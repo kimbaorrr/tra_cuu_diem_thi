@@ -154,7 +154,7 @@ $(document).ready(function () {
         // Bật lại nút Nạp dữ liệu sau 5 giâys
         setTimeout(function () {
             this_btn.prop('disabled', false);
-        }, 3000);
+        }, 1200);
 
     });
 });
