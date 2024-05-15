@@ -101,6 +101,7 @@ $(document).ready(function () {
                             "targets": [0], // Chỉ Search cột SBD
                             "searchable": true
                         }],
+                        scrollX: '100%',
                         scrollY: '35vh', // Đặt chiều cao của vùng cuộn
                         scrollCollapse: true, // Bật thanh cuộn
                         data: jsonDiemThi, // Nạp data json điểm thi
