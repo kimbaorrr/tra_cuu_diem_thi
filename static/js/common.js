@@ -128,7 +128,7 @@ $(document).ready(function () {
         /**
          * Hiện loading circle
          */
-        $("#loading-spin").show();
+        $("#loading-spin").delay(1000).show();
     }
 
     function hideLoadingSpin() {
