@@ -69,6 +69,11 @@ $(document).ready(function () {
         })
     }
 
+    function xoaDataTableOld() {
+        if ($.fn.DataTable.isDataTable("#data-diem-thi")) {
+            $('#data-diem-thi').DataTable().clear().destroy();
+        }
+    }
     function readExcelFile(url) {
         /**
          * Đọc dữ liệu từ File Excel
@@ -81,6 +86,8 @@ $(document).ready(function () {
                 responseType: 'blob'
             },
             success: function (data) {
+                xoaDataTableOld();
+                showLoadingSpin();
                 let reader = new FileReader();
                 reader.onload = function (e) {
                     // Chuyển data từ reader về dạng mảng uint8 & đọc chúng
@@ -91,10 +98,6 @@ $(document).ready(function () {
                     let workSheet = workbook.Sheets[sheetName];
                     // Chuyển đổi dữ liệu từ worksheet sang JSON
                     let jsonDiemThi = XLSX.utils.sheet_to_json(workSheet);
-                    // Xóa bảng hiện tại nếu có
-                    if ($.fn.DataTable.isDataTable("#data-diem-thi")) {
-                        $('#data-diem-thi').DataTable().clear().destroy();
-                    }
                     // Khởi tạo DataTables với dữ liệu từ JSON
                     table = $('#data-diem-thi').DataTable({
                         "columnDefs": [{
@@ -110,12 +113,13 @@ $(document).ready(function () {
                             data: key
                         })) // Lấy thông tin headers
                     });
-
+                    hideLoadingSpin();
                 };
                 reader.readAsArrayBuffer(data);
             },
             error: function (error) {
                 thongBao("Không tìm thấy dữ liệu !", "warning");
+                hideLoadingSpin();
             }
         });
     }
@@ -138,20 +142,19 @@ $(document).ready(function () {
         /**
          * Load điểm thi lên màn hình
          */
-        // Hiện loading circle
-        showLoadingSpin();
+        let this_btn = $(this);
+        // Tắt nút Nạp dữ liệu khi đã nhấn (Ngăn nhấn nhiều lần)
+        this_btn.prop('disabled', true);
         // Lấy giá trị select năm thi
         let nam_thi = $('#select-nam-thi').val();
         // Lấy giá trị select kỳ thi
         let ky_thi = $('#select-ky-thi').val();
         // Gọi hàm readExcelFile để load dữ liệu mới từ file excel
         readExcelFile(`/static/data/${ky_thi}_${nam_thi}.xlsx`);
-        // Ẩn loading circle
-        hideLoadingSpin();
+        // Bật lại nút Nạp dữ liệu sau 5 giây
+        setTimeout(function () {
+            this_btn.prop('disabled', false);
+        }, 5000);
+
     });
-
-
-
-
-
 });
