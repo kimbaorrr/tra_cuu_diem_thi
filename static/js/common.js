@@ -50,7 +50,9 @@ $(document).ready(function () {
         /**
          * Bắt đầu tìm nội dung khi ấn nút
          */
-        searchQuery($("#tim-kiem-input").val());
+        if ($("#tim-kiem-input").val() != "") {
+            searchQuery($("#tim-kiem-input").val());
+        }
     });
 
     function thongBao(message, status) {
@@ -86,7 +88,6 @@ $(document).ready(function () {
                 responseType: 'blob'
             },
             success: function (data) {
-                xoaDataTableOld();
                 showLoadingSpin();
                 let reader = new FileReader();
                 reader.onload = function (e) {
@@ -149,6 +150,8 @@ $(document).ready(function () {
         let nam_thi = $('#select-nam-thi').val();
         // Lấy giá trị select kỳ thi
         let ky_thi = $('#select-ky-thi').val();
+        // Xóa Table cũ
+        xoaDataTableOld();
         // Gọi hàm readExcelFile để load dữ liệu mới từ file excel
         readExcelFile(`/static/data/${ky_thi}_${nam_thi}.xlsx`);
         // Bật lại nút Nạp dữ liệu sau 5 giâys
