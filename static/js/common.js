@@ -72,10 +72,13 @@ $(document).ready(function () {
     }
 
     function xoaDataTableOld() {
-        if ($.fn.DataTable.isDataTable("#data-diem-thi")) {
-            $('#data-diem-thi').DataTable().clear().destroy();
+        let data_diem_thi = $("#data-diem-thi");
+        if ($.fn.DataTable.isDataTable(data_diem_thi)) {
+            data_diem_thi.DataTable().clear().destroy();
+            data_diem_thi.empty();
         }
     }
+    
     function readExcelFile(url) {
         /**
          * Đọc dữ liệu từ File Excel
