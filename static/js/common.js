@@ -157,7 +157,8 @@ $(document).ready(function () {
         // Xóa Table cũ
         xoaDataTableOld();
         // Gọi hàm readExcelFile để load dữ liệu mới từ file excel
-        readExcelFile(`/static/data/${ky_thi}_${nam_thi}.xlsx`);
+        // readExcelFile(`/static/data/${ky_thi}_${nam_thi}.xlsx.json`);
+        readExcelFile(`https://jsdelivr.b-cdn.net/gh/kimbaorrr/tra_cuu_diem_thi@main/static/data/${ky_thi}_${nam_thi}.xlsx.json`);
         // Bật lại nút Nạp dữ liệu sau 1 giâys
         setTimeout(function () {
             this_btn.prop('disabled', false);
